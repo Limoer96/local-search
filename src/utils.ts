@@ -35,3 +35,12 @@ export function isValidNode(node: HTMLElement) {
 export function isWrapMark(node: ChildNode) {
   return node.nodeName === '#text' && /(\s)*\n/.test(node.nodeValue!)
 }
+
+/**
+ * 对正则表达式涉及的字符串进行转移
+ * @param input
+ */
+export function escapeInputString(input: string) {
+  const reg = /([\.\{\}\$\(\)\*\+\[\]\?\\\^\|])/g
+  return input.replace(reg, '\\$1')
+}
