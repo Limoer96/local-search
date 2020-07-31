@@ -1,43 +1,43 @@
-import { findTextWithKeyWords } from './findTextWithKeywords'
-import { escapeInputString } from './utils'
+import { IOptions, KeywordsOrSelector, DefaultOptions, search } from './search'
+import { markKeywords } from './markKeywords'
 
-type KeywordsOrSelector =
-  | string
-  | keyof HTMLElementTagNameMap
-  | keyof SVGElementTagNameMap
-
-interface IOptions {
-  useRegexp?: boolean
-  scope?: HTMLElement | string
+interface IProps extends IOptions {
+  input?: KeywordsOrSelector
 }
-
-const DefaultOptions: IOptions = {
-  useRegexp: false,
-  scope: document.body,
-}
-
-function searchAsText(input: KeywordsOrSelector | RegExp, scope: HTMLElement) {
-  return findTextWithKeyWords(input, scope)
-}
-
-function querySelector(input: KeywordsOrSelector, scope: HTMLElement) {
-  let doms: any[] = []
-  try {
-    doms = Array.from(scope.querySelectorAll(input))
-  } catch (error) {
-    console.warn('invalid selector')
-  } finally {
-    return Promise.resolve(doms)
+class LocalSearch {
+  private input: string | undefined
+  private config: IOptions
+  private current: number
+  private result: HTMLElement[] = []
+  constructor(props: IProps) {
+    this.input = props.input!
+    this.config = {
+      useRegexp: props.useRegexp || DefaultOptions.useRegexp,
+      scope: props.scope || DefaultOptions.scope,
+    }
+    this.current = 0
+  }
+  setSearch(input: KeywordsOrSelector) {
+    if (!input) {
+      return
+    }
+    this.input = input
+  }
+  begin() {
+    if (!this.input) {
+      return
+    }
+    return search(this.input!, this.config).then((values) => {
+      this.result = values
+      return [this, values]
+    })
+  }
+  next() {
+    if (this.current < this.result.length) {
+      let dom = this.result[this.current]
+      markKeywords(this.input!, dom, this.config.useRegexp!)
+      dom.scrollIntoView()
+    }
   }
 }
-
-export async function search(input: KeywordsOrSelector, params: IOptions = {}) {
-  const { scope, useRegexp } = { ...DefaultOptions, ...params }
-  const inputReg = useRegexp ? new RegExp(escapeInputString(input), 'g') : input
-  const parent =
-    typeof scope === 'string' ? document.getElementById(scope) : scope
-  const textPromise = searchAsText(inputReg, parent!)
-  const querySelectorPromise = querySelector(input, parent!)
-  const values = await Promise.all([textPromise, querySelectorPromise])
-  return values
-}
+export default LocalSearch

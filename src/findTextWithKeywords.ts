@@ -2,7 +2,7 @@ import { getStyle, isValidNode, isWrapMark } from './utils'
 import { checkTextMatches } from './checkMatches'
 
 interface Dict {
-  [key: string]: HTMLElement | HTMLElement[]
+  [key: string]: HTMLElement[]
 }
 
 const caches: Dict = {}
@@ -11,12 +11,12 @@ let first: boolean = true
 function setCaches(keyStr: string, value: HTMLElement) {
   const key = keyStr.trim()
   if (!caches[key]) {
-    caches[key] = value
+    caches[key] = [value]
   } else {
     const existValue =
       Object.prototype.toString.call(caches[key]) === '[object Array]'
-        ? (caches[key] as HTMLElement[])
-        : [caches[key] as HTMLElement]
+        ? caches[key]
+        : [caches[key]]
     caches[key] = [value].concat(...existValue)
   }
 }
