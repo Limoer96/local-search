@@ -6,5 +6,7 @@ export function checkTextMatches(keywords: string | RegExp, text: string) {
     }
     return keywords === text
   }
-  return (keywords as RegExp).test(text)
+  const exist = (keywords as RegExp).test(text)
+  keywords.lastIndex = 0 // 重置lastIndex!!!
+  return exist
 }

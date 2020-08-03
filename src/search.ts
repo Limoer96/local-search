@@ -32,6 +32,14 @@ function querySelector(input: KeywordsOrSelector, scope: HTMLElement) {
   }
 }
 
+export const TypeSelector = 'selector'
+export const TypeText = 'text'
+
+export interface IDomFormated {
+  dom: HTMLElement
+  type: typeof TypeSelector | typeof TypeText
+}
+
 export async function search(input: KeywordsOrSelector, params: IOptions = {}) {
   const { scope, useRegexp } = { ...DefaultOptions, ...params }
   const inputReg = useRegexp ? new RegExp(escapeInputString(input), 'g') : input
@@ -39,6 +47,23 @@ export async function search(input: KeywordsOrSelector, params: IOptions = {}) {
     typeof scope === 'string' ? document.getElementById(scope) : scope
   const textPromise = searchAsText(inputReg, parent!)
   const querySelectorPromise = querySelector(input, parent!)
-  const values = await Promise.all([textPromise, querySelectorPromise])
-  return flattenDeep(values)
+  const [textValues, selectorValues] = await Promise.all([
+    textPromise,
+    querySelectorPromise,
+  ])
+  const selectorsFormated: IDomFormated[] = selectorValues.map(
+    (item) =>
+      ({
+        dom: item,
+        type: TypeSelector,
+      } as IDomFormated)
+  )
+  const textsFormated: IDomFormated[] = flattenDeep(textValues).map(
+    (item) =>
+      ({
+        dom: item,
+        type: TypeText,
+      } as IDomFormated)
+  )
+  return [...selectorsFormated, ...textsFormated]
 }
