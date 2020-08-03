@@ -1,18 +1,32 @@
 {
   "name": "local-search",
   "version": "1.0.0",
-  "description": "",
+  "description": "A package for DOM lookup and markup",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
   },
   "files": [
     "dist"
   ],
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "search",
+    "dom search",
+    "mark",
+    "markup"
+  ],
+  "author": {
+    "name": "limoer",
+    "email": "myt19960503@outlook.com",
+    "url": "https://limoer.cc"
+  },
+  "homepage": "https://github.com/Limoer96/local-search",
+  "bugs": "https://github.com/Limoer96/local-search/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Limoer96/local-search"
+  },
+  "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.19"
   },
