@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react'
 import LocalSearch from 'local-search/dist'
 import './App.css'
 
+let search = new LocalSearch({ useRegexp: true }) // 只能实例化一次
+
 function App() {
   const [keywords, setKeywords] = useState('')
-  let search = new LocalSearch({ input: keywords })
   useEffect(() => {
     search.setSearch(keywords)
   }, [keywords, search])
   function handleClick() {
-    search.begin().then(([ins, result]) => {
-      console.log('res', result)
-      ins.next()
+    search.begin().then(() => {
+      search.next()
     })
   }
   function handleNext() {
