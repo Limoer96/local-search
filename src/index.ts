@@ -75,7 +75,9 @@ class LocalSearch {
         this.current += 1
       }
       domObj.dom.scrollIntoView({ block: 'center' })
+      return true
     }
+    return false
   }
 }
 export default LocalSearch
