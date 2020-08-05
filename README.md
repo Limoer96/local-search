@@ -62,7 +62,7 @@ export interface IDomFormated {
 class LocalSearch {
   setSearch(input: KeywordsOrSelector): void // set keywords
   begin(): Promise<IDomFormated[]> | undefined // begin to search
-  next(): void // mark one search result
+  next(): boolean // mark one search result, returns has next search result or not
 }
 ```
 
