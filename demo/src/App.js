@@ -1,6 +1,6 @@
 import React from 'react'
 import LocalSearch from 'local-search'
-import { Layout, Input, Button, Typography } from 'antd'
+import { Layout, Input, Button, Typography, message } from 'antd'
 import { GithubOutlined } from '@ant-design/icons'
 import './App.css'
 
@@ -16,7 +16,10 @@ function App() {
     })
   }
   function handleNext() {
-    search.next()
+    const hasNext = search.next()
+    if (!hasNext) {
+      message.warn('no more match words')
+    }
   }
   function handleGoHomePage() {
     window.location.href = 'https://github.com/Limoer96/local-search'
