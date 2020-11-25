@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LocalSearch from "local-search";
 import { Layout, Input, Button, Typography, message } from "antd";
 import { GithubOutlined } from "@ant-design/icons";
@@ -9,15 +9,17 @@ const { Header } = Layout;
 const { Title } = Typography;
 
 function App() {
+  const [nextBtnVisible, setNextBtnVisible] = useState(true);
   function handleSearch(val) {
     search.setSearch(val);
     search.begin().then((val) => {
-      search.next();
+      const hasNext = search.next();
+      setNextBtnVisible(hasNext);
     });
   }
   function handleNext() {
     const hasNext = search.next();
-    console.log("has next", hasNext);
+    setNextBtnVisible(hasNext);
     if (!hasNext) {
       message.warn("no more match words");
     }
@@ -37,7 +39,12 @@ function App() {
             enterButton="Search"
             onSearch={handleSearch}
           />
-          <Button onClick={handleNext} size="large" style={{ marginLeft: 14 }}>
+          <Button
+            disabled={!nextBtnVisible}
+            onClick={handleNext}
+            size="large"
+            style={{ marginLeft: 14 }}
+          >
             Next
           </Button>
           <p style={{ flex: 1, textAlign: "right", marginBottom: 0 }}>

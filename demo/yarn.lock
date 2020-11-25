@@ -6311,10 +6311,10 @@ loader-utils@1.2.3, loader-utils@^1.0.2, loader-utils@^1.1.0, loader-utils@^1.2.
     emojis-list "^2.0.0"
     json5 "^1.0.1"
 
-local-search@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npm.taobao.org/local-search/download/local-search-1.1.0.tgz#9792c185ae035c110b02f7c7e5e5d48c66290467"
-  integrity sha1-l5LBha4DXBELAvfH5eXUjGYpBGc=
+local-search@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npm.taobao.org/local-search/download/local-search-1.1.1.tgz?cache=0&sync_timestamp=1606291291733&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Flocal-search%2Fdownload%2Flocal-search-1.1.1.tgz#e34faeeb68f4ee63208e5df04b31c85944f0972e"
+  integrity sha1-40+u62j07mMgjl3wSzHIWUTwly4=
   dependencies:
     lodash "^4.17.19"
 
