@@ -1,32 +1,33 @@
-import React from 'react'
-import LocalSearch from 'local-search'
-import { Layout, Input, Button, Typography, message } from 'antd'
-import { GithubOutlined } from '@ant-design/icons'
-import './App.css'
+import React from "react";
+import LocalSearch from "local-search";
+import { Layout, Input, Button, Typography, message } from "antd";
+import { GithubOutlined } from "@ant-design/icons";
+import "./App.css";
 
-let search = new LocalSearch({ useRegexp: true }) // 只能实例化一次
-const { Header } = Layout
-const { Title } = Typography
+let search = new LocalSearch({ useRegexp: true }); // 只能实例化一次
+const { Header } = Layout;
+const { Title } = Typography;
 
 function App() {
   function handleSearch(val) {
-    search.setSearch(val)
+    search.setSearch(val);
     search.begin().then((val) => {
-      search.next()
-    })
+      search.next();
+    });
   }
   function handleNext() {
-    const hasNext = search.next()
+    const hasNext = search.next();
+    console.log("has next", hasNext);
     if (!hasNext) {
-      message.warn('no more match words')
+      message.warn("no more match words");
     }
   }
   function handleGoHomePage() {
-    window.location.href = 'https://github.com/Limoer96/local-search'
+    window.location.href = "https://github.com/Limoer96/local-search";
   }
   return (
     <div className="App">
-      <Layout style={{ position: 'fixed', top: 0, width: '100%' }}>
+      <Layout style={{ position: "fixed", top: 0, width: "100%" }}>
         <Header className="header-container">
           <p className="title">Demo</p>
           <Input.Search
@@ -39,9 +40,9 @@ function App() {
           <Button onClick={handleNext} size="large" style={{ marginLeft: 14 }}>
             Next
           </Button>
-          <p style={{ flex: 1, textAlign: 'right', marginBottom: 0 }}>
+          <p style={{ flex: 1, textAlign: "right", marginBottom: 0 }}>
             <Button
-              style={{ verticalAlign: 'middle' }}
+              style={{ verticalAlign: "middle" }}
               type="primary"
               shape="circle"
               icon={<GithubOutlined />}
@@ -190,7 +191,7 @@ function App() {
         </p>
       </article>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
