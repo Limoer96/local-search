@@ -13,25 +13,25 @@ $ yarn add local-search
 
 ## Usage
 
-> Online demo [here](http://212.64.77.74:8080/localsearch/).
+> Online demo [here](http://212.64.77.74:80/local-search/).
 
 ```js
 // in react
-let search = new LocalSearch({ useRegexp: true })
+let search = new LocalSearch({ useRegexp: true });
 function App() {
-  const [keywords, setKeywords] = useState('')
+  const [keywords, setKeywords] = useState("");
   useEffect(() => {
-    search.setSearch(keywords)
-  }, [keywords, search])
+    search.setSearch(keywords);
+  }, [keywords, search]);
   function handleClick() {
     search.begin().then(() => {
-      search.next()
-    })
+      search.next();
+    });
   }
   function handleNext() {
-    search.next()
+    search.next();
   }
-  return <div>...</div>
+  return <div>...</div>;
 }
 ```
 
@@ -43,12 +43,12 @@ function App() {
 export type KeywordsOrSelector =
   | string
   | keyof HTMLElementTagNameMap
-  | keyof SVGElementTagNameMap
+  | keyof SVGElementTagNameMap;
 
 interface IOption {
-  input?: KeywordsOrSelector // keywords or selector
-  useRegexp?: boolean // default: false
-  scope?: HTMLElement | string // rootDom, default: document.body
+  input?: KeywordsOrSelector; // keywords or selector
+  useRegexp?: boolean; // default: false
+  scope?: HTMLElement | string; // rootDom, default: document.body
 }
 ```
 
@@ -56,13 +56,13 @@ interface IOption {
 
 ```ts
 export interface IDomFormated {
-  dom: HTMLElement
-  type: typeof TypeSelector | typeof TypeText
+  dom: HTMLElement;
+  type: typeof TypeSelector | typeof TypeText;
 }
 class LocalSearch {
-  setSearch(input: KeywordsOrSelector): void // set keywords
-  begin(): Promise<IDomFormated[]> | undefined // begin to search
-  next(): boolean // mark one search result, returns has next search result or not
+  setSearch(input: KeywordsOrSelector): void; // set keywords
+  begin(): Promise<IDomFormated[]> | undefined; // begin to search
+  next(): boolean; // mark one search result, returns has next search result or not
 }
 ```
 
